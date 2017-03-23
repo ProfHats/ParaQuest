@@ -1,5 +1,6 @@
     import React from 'react';
 	import {AdventureAPI} from './AdventuresAPI';
+	import {Link} from 'react-router';
 
 
 	var StatsBar = React.createClass({
@@ -50,21 +51,25 @@
 		render : function()
 		{
 		return(
-		<FunStuff adventures={this.props.adventures}/>
+		<LinkToAdventures adventures={this.props.adventures}/>
 		);	
 		}
 	});
 	
-	var FunStuff = React.createClass({
+	var LinkToAdventures = React.createClass({
 	//next step is figuring out how to get button pushes to load up new content	
 	render : function()
 	{
 		var listAdv = this.props.adventures.map(function(adventure) {
+		if(adventure.id === 'start'){	
 		return (
 		<SingleAdventure advData={adventure} />
 		);
+		}
+		//this successfully limits us to the first adventure for the time being. To remove, remove the if statement
+
 	}.bind(this));
-	
+		
 	return(
 	<div>
 	{listAdv}
@@ -78,8 +83,17 @@
 	var SingleAdventure = React.createClass({
 		render : function()
 		{
+		var nextAdventures = this.props.advData.next.map(function(next) {
+		return (
+		<Link to={next.id}>{next.btnTxt}</Link>
+		);
+		}.bind(this));
+		
 		return(
+		<div>
 		<p>{this.props.advData.text}</p>
+		<p>{nextAdventures}</p>
+		</div>
 		);	
 		}
 		//Each page should have 
