@@ -172,7 +172,7 @@ btnTxt: 'Put your hands up and show you mean no harm'
 ],
 tests:[
 {
-name: 'charmColonel',
+name: 'Attempt to Charm The Colonel',
 threshold: 6,
 statRequired: 'charm',
 onSuccess: 'colCHRPass',
