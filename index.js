@@ -7,6 +7,21 @@
 	import AdventureView from './adventurePage';
 	
 		    var App = React.createClass({
+				
+					changeStats : function (type, amount){
+					switch(type){
+					case 'strength':
+					stats.strength += amount;
+					break;	
+					case 'brains':
+					stats.brains += amount;
+					break;
+					case 'charm':
+					stats.charm += amount;
+					}	
+					},
+
+				
       render : function() {
         return (
             <div className="container">
@@ -14,6 +29,8 @@
                   <div className="col-md-6 col-md-offset-3">
                      <div className="page-header">
                            {this.props.children}
+							
+								
                      </div>
                    </div>
                 </div>
@@ -21,13 +38,15 @@
         )
       }
     });
+			var STR = 'Strength: ';		
+
 	var stats = 
 	{
 	strength : 5,
     brains: 5,
     charm: 5	
 	};//these are the beginning stats
-	
+	//we need these to be updated whenever a relevant update check passes in adventurePage.
 	
 /*	   ReactDOM.render(
       <ParaQuest character={stats} adventures={Adventures}/>,

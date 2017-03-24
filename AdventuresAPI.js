@@ -6,6 +6,7 @@ var Adventures = [
 id: "start",
 text: "You stand in a vast, white room with no features. Before you are two doors.",
 previous: "",
+	statGain: [],
 next: [
 {
 id:"orangeRoom1",
@@ -22,6 +23,7 @@ btnTxt: "Open The Left Door"
 id: "orangeRoom1",
 text: "The door swings open noiselessly, revealing a floor of orange tiles. The room you step into feels cool, and you notice strange shrines in alcoves hidden in the walls.",
 previous: "start",
+	statGain: [],
 next: [
 {
 id:"orangeRoomShrine1",
@@ -38,6 +40,7 @@ btnTxt: "Walk to the other end of the room"
 id: "earthRoom1",
 text: "The door heaves open slowly, with a horrific grinding noise. It is obviously very heavily rusted. At last it opens, and you see a room with an earthen floor, with copper pots strewn everywhere.",
 previous: "start",
+	statGain: [],
 next: [
 {
 id: "earthRoomCopperPot",
@@ -54,6 +57,7 @@ btnTxt: "Walk past the pots"
 id: "orangeRoomShrine1",
 text: "All but one of the Shrines has been defaced. You do not recognise the statue within, though the abundant carvings of grapevines lead you to believe this figure is a wine lord of sorts. In a corner, someone has painted the words 'All Lions Abhor The Vine' in red. Could this be a clue?",
 previous: "orangeRoom1",
+	statGain: [],
 next:[],
 	tests: []
 },
@@ -61,6 +65,7 @@ next:[],
 id: "orangeRoom2",
 text: "As you cross the room, it becomes apparent that it is (or used to be) a temple of some sort. The walls are decorated with elaborate designs depicting serpents, clouds, and giants. It is not clear to you what any of this means, but eventually you come to the opposite end of the room.",	
 previous: "orangeRoom1",
+	statGain: [],
 next:[],
 	tests: []
 },
@@ -68,6 +73,7 @@ next:[],
 id: "earthRoomCopperPot",
 text: "The pot bears the mark of a tiger's head, and is bright and burnished, as if it had recently been cleaned. Either this strange place is inhabited, or these pots are of very recent make. Of course, it's also possible that you have gone mad. Never a possibility to be discounted lightly.",	
 previous: "earthRoom1",
+	statGain: [],
 next:[],
 	tests: []
 },
@@ -75,6 +81,7 @@ next:[],
 id: "earthRoom2",
 text: "The earth is cool and dry beneath your feet. You cross the hallway and find a stone door at the other side of the room. It contains carved images of oranges. You attempt to open it, but it is locked, and you see no keyhole. Below the door are three carved images, different from the others. They depict a goat, a tiger, and an eagle. Are these clues to something?", 	
 previous: "earthRoom1",
+	statGain: [],
 next:
 [
 {
@@ -143,6 +150,7 @@ next:[
 id: 'door1BRNPass',
 text: 'You carefully study each of the animal symbols, trying to remember the classes you took years ago on Classical Symbology. At last you remember - yes, yes, the Swan and the Tiger. You recall an old rhyme that lists animals, and try pressing on the symbols in that order. Gears screech, and the doors open just a crack...',	
 previous: 'openDoorTestResult',
+	statGain: [],
 next:[
 {
 id: 'ladyChamber1',
@@ -155,6 +163,7 @@ btnTxt: 'Proceed through the ruined doors'
 id: 'door1BRNFail',
 text: 'You look at each of the symbols in turn, then you turn them over in your head again and again. Suddenly, a revelation! The tiger is surely a symbol for imperialism, and the dove..! You touch the carvings in a particular order, but all you get for your trouble is wasted time. You should probably think this through again',	
 previous: 'openDoorTestResult',
+	statGain: [],
 next:[
 ],
 		tests:[]
@@ -172,7 +181,7 @@ btnTxt: 'Put your hands up and show you mean no harm'
 ],
 tests:[
 {
-name: 'Attempt to Charm The Colonel',
+name: 'Convince Them That You Belong Here',
 threshold: 6,
 statRequired: 'charm',
 onSuccess: 'colCHRPass',

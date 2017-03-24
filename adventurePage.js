@@ -7,23 +7,43 @@ import {browserHistory} from 'react-router';
 			 //TODO: Make a CSS file that turns the "statsbar" elements into an actual bar, 
 		 //so they don't stick together like glue anymore
 		render : function(){
-			
+		  var statStyle = {
+		   margin: 10,
+		   textAlign: 'left',
+		   borderStyle: 'solid black',
+		   borderWidth: 2,
+		   
+		   float: 'left'
+		   };	
 			
 		console.log(this.props.foo.strength);
 		return(
-		<div>
+		<div style={statStyle}>
+		  <tr>
+		   <td><b>Your Stats</b></td>
+		   </tr>
+		<tr>
 		 <td>
 	
-		   Strength: {this.props.foo.strength}
+		   Strength: {this.props.foo.strength + " "}
 		  
 		  </td>
+		  </tr>
+		  <tr>
 		   <td>
 		   Brains: {this.props.foo.brains}
 		   </td>
+		   </tr>
+		   <tr>
 		   <td>
 		   Charm: {this.props.foo.charm}
 		   </td>
+		   </tr>
+		 
+		 
 		   </div>
+		   
+		
 		);		
 		
 		
@@ -70,6 +90,9 @@ return (
 });
 
 var AdventureView = React.createClass({
+
+
+	
 performTest : function(tName, tThresh, tStat, success, fail){
 var passed;
 console.log("Also upon Click: Required Stat is " + tStat);
@@ -85,7 +108,7 @@ passed = AdventureAPI.statTest(this.props.route.character.charm, tThresh);
 
 if(passed){
 
-browserHistory.push(newChara, success);
+browserHistory.push(success);
 }
 else{
 browserHistory.push(fail);	
@@ -93,6 +116,11 @@ browserHistory.push(fail);
 },
 
 render: function(){
+	
+var mainStyle = {
+	float: 'right',
+};	
+	
 var successOrFail;
 var responses = [];
 var buttons = [];
@@ -112,14 +140,17 @@ var btn1Fail, btn2Fail, btn3Fail;
 var StatsIncrease = adventure.statGain[0];
 console.log("This page's possible stat increases: " + StatsIncrease);
 var statChangeText;
-var newChara;
 
 if(StatsIncrease != null){
-console.log('StatIncrease exists ' + StatsIncrease.type);
+console.log('ChangeStats is a ' + this.props.route.changeStats);
 switch(StatsIncrease.type){
 case 'strength':
 this.props.route.character.strength += StatsIncrease.amount;
-newChara = [this.props.character.strength, this.props.character.brains, this.props.character.charm];
+//{() => this.props.changeStats('strength', StatsIncrease.amount)};
+
+//need a callback here that tells index.js (specifically App) that strength needs to be updated
+//in future, this section will no longer need to refer to props.route, but will refer instead to the stats variable
+//in index.js' App component
 break;
 case 'brains':
 this.props.route.character.brains += StatsIncrease.amount;
@@ -208,7 +239,7 @@ default:
 
 
 return(
-<div>
+<div style={mainStyle}>
 <StatsBar foo={this.props.route.character}/>
 {line}
 {responses}
