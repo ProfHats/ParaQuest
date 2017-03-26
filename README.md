@@ -50,8 +50,15 @@ A diagram showing the app's hierarchical component design (see example below).
 . . . . . Screenshots of app's views (see example below) with appropriate captions (user regeneration and login views, if implemented, can be omitted) . . . . . . . 
 
 ![][image3]
-(screen)
-
+(example screen)
+![][image4]
+(example of a screen with a Test on it)
+![][image5]
+(example of the type of screen that results from taking a Test)
+![][image6]
+(The Inventory Screen)
+![][image7]
+(The Screen for a single Item)
 ## Routing.
 
 + /:advID - routes the player to an AdventureView, with data based on the advID
@@ -72,6 +79,10 @@ A system to persist changes to State, such as the addition/removal of Weapons an
 +The correct use of random() to generate pseudorandom numbers for use with the Tests
 +The use of callbacks to pass state between Parent components and Child components (not finished, but studied)
 
-[image1]: https://cloud.githubusercontent.com/assets/8709835/24334552/07435c68-1264-11e7-9185-9a40dd262ccc.JPG
-[image2]: ./images/Hierarchical Model.jpg
-[image3]: ./images/AdventurePic1.jpg
+[image1]: https://cloud.githubusercontent.com/assets/8709835/24334558/10f8fd76-1264-11e7-94a2-4451e39799fc.jpg
+[image2]: https://cloud.githubusercontent.com/assets/8709835/24334561/149057b8-1264-11e7-8ed9-c7409b7424cb.jpg
+[image3]: https://cloud.githubusercontent.com/assets/8709835/24334552/07435c68-1264-11e7-9185-9a40dd262ccc.JPG
+[image4]: https://cloud.githubusercontent.com/assets/8709835/24334553/0ae9f8fe-1264-11e7-806f-7316bde08d45.JPG
+[image5]: https://cloud.githubusercontent.com/assets/8709835/24334555/0de9b0bc-1264-11e7-80c0-0fb06de8336d.JPG
+[image6]: https://cloud.githubusercontent.com/assets/8709835/24334564/1ddb8086-1264-11e7-8619-fc4e110b1a81.JPG
+[image7]: https://cloud.githubusercontent.com/assets/8709835/24334563/18633e3c-1264-11e7-8c67-1bb380ad1591.JPG
