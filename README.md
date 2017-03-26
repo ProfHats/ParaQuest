@@ -31,11 +31,8 @@ After cloning the app from the repository, one only needs to run it via 'npm sta
 
 ## Data Model Design.
 
-Diagram of app's data model (see example below) AND/OR a sample of the test data used (JSON or equivalent).
-
 ![][image1]
-(model)
-
+(the App's Data Model)
 There were some problems with attempting to preserve State across different AdventurePages, and the feature was ultimately dropped. As of now,
 State resets when the Page changes, which makes the App's persistence system less-than-satisfactory.
 
@@ -43,8 +40,7 @@ State resets when the Page changes, which makes the App's persistence system les
 
 
 ![][image2]
-(design)
-
+(the App's Hierarchy)
 ## UI Design.
 
 ![][image3]
