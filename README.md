@@ -36,18 +36,16 @@ Diagram of app's data model (see example below) AND/OR a sample of the test data
 ![][image1]
 (model)
 
-Use meaningful sample data. Briefly explain any non-trivial issues.
+There were some problems with attempting to preserve State across different AdventurePages, and the feature was ultimately dropped. As of now,
+State resets when the Page changes, which makes the App's persistence system less-than-satisfactory.
 
 ## App Component Design.
 
-A diagram showing the app's hierarchical component design (see example below). 
 
 ![][image2]
 (design)
 
 ## UI Design.
-
-. . . . . Screenshots of app's views (see example below) with appropriate captions (user regeneration and login views, if implemented, can be omitted) . . . . . . . 
 
 ![][image3]
 (example screen)
