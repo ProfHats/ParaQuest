@@ -33,6 +33,7 @@ After cloning the app from the repository, one only needs to run it via 'npm sta
 
 ![][image1]
 (the App's Data Model)
+
 There were some problems with attempting to preserve State across different AdventurePages, and the feature was ultimately dropped. As of now,
 State resets when the Page changes, which makes the App's persistence system less-than-satisfactory.
 
