@@ -3,16 +3,40 @@ import {Router} from 'react-router';
 import {AdventureAPI} from './AdventuresAPI';
 import {browserHistory} from 'react-router';
 
+    var Form = React.createClass({
+       getInitialState: function() {
+           return { enter: ''};
+        },
+		handleChange: function(event){
+		this.setState({});	
+		},
+		
+        render : function() {
+           return (
+             <form style={{marginTop: '30px'}}>
+                <div className="form-group">
+                  <input type="text"
+                    className="form-control" placeholder="Title"
+                    value={this.state.enter} ></input>
+                </div>
+    
+                <button type="submit" className="btn btn-primary" onClick={this.handleCheck}>Speak</button>
+              </form>
+            );
+          }
+       });
+
 	var StatsBar = React.createClass({
 			 //TODO: Make a CSS file that turns the "statsbar" elements into an actual bar, 
 		 //so they don't stick together like glue anymore
 		render : function(){
 		  var statStyle = {
-		   margin: 10,
+		
 		   textAlign: 'left',
-		   borderStyle: 'solid black',
+		   borderStyle: 'solid',
 		   borderWidth: 2,
-		   
+		   	position: 'absolute',
+			left: 1,
 		   float: 'left'
 		   };	
 			
@@ -49,6 +73,44 @@ import {browserHistory} from 'react-router';
 		
 		}
 	});
+	
+	var DamagesBar = React.createClass({
+	render:function(){
+	var dmgStyle = {
+	borderStyle: 'solid',
+	borderWidth: 2,
+	position: 'absolute',
+	top: 117,
+	left: 1,
+	
+	};
+	return(
+	<div style={dmgStyle}>
+	<tr>
+	<td>
+	<b>Menaces</b>
+	</td>
+	</tr>
+	<tr>
+	<td>
+	Injuries: {this.props.dmgs.injuries}
+	</td>
+	</tr>
+	<tr>
+	<td>
+	Stress: {this.props.dmgs.stress}
+	</td>
+	</tr>
+	<tr>
+	<td>
+	Scandal: {this.props.dmgs.scandal}
+	</td>
+	</tr>
+	</div>
+	);
+		
+	}	
+	});
 
 var Adventure = React.createClass({
 	render : function(){
@@ -66,8 +128,10 @@ var NextAdventures = React.createClass({
 
 render : function(){
 	var dataForButtons = this.props.nextOnes.map(function(nextAdv,index) {
-		return <Adventure adventure={nextAdv} />; 
-	}.bind(this) )
+		return (
+		<p><Adventure adventure={nextAdv} /></p>
+		
+	)}.bind(this) )
 	return(
 	<div>
 	{dataForButtons}
@@ -82,7 +146,6 @@ var BackArea = React.createClass({
 render : function(){
 if(this.props.previous != null){
 return (
-
 <a href={this.props.previous}>Go Back</a>	
 );
 }	
@@ -90,9 +153,21 @@ return (
 });
 
 var AdventureView = React.createClass({
+goToInventory : function(advID){
+	browserHistory.push(advID + "/inventory");
+},
 
+formTest : function(guess, answer, success, failure){
+var passed;
+passed = AdventureAPI.formTest(guess, answer);	
+if(passed){
+browserHistory.push(success);	
+}
+else{
+browserHistory.push(failure);	
+}
+},	
 
-	
 performTest : function(tName, tThresh, tStat, success, fail){
 var passed;
 console.log("Also upon Click: Required Stat is " + tStat);
@@ -104,6 +179,10 @@ passed = AdventureAPI.statTest(this.props.route.character.brains, tThresh);
 }
 else if(tStat === 'charm'){
 passed = AdventureAPI.statTest(this.props.route.character.charm, tThresh);	
+}
+else if(tStat === 'form'){
+checkForm = <Form />;
+	
 }
 
 if(passed){
@@ -118,12 +197,20 @@ browserHistory.push(fail);
 render: function(){
 	
 var mainStyle = {
-	float: 'right',
+	position: 'absolute',
+	left: 100,
+
 };	
-	
+var statBarStyle = {
+	borderStyle: 'solid black',
+	borderWidth: 2
+};
+
+var checkForm;	
 var successOrFail;
 var responses = [];
 var buttons = [];
+buttons.push(<button onClick={()=> this.goToInventory(this.props.params.advID)}>Inventory</button>)
 var advId = this.props.params.advID;
 console.log("This ID is " + advId);
 var adventure = AdventureAPI.getAdventure(advId);
@@ -147,16 +234,30 @@ switch(StatsIncrease.type){
 case 'strength':
 this.props.route.character.strength += StatsIncrease.amount;
 //{() => this.props.changeStats('strength', StatsIncrease.amount)};
-
+statChangeText = <p>{"You gained " + StatsIncrease.amount + " Strength!"}</p>;
 //need a callback here that tells index.js (specifically App) that strength needs to be updated
 //in future, this section will no longer need to refer to props.route, but will refer instead to the stats variable
 //in index.js' App component
 break;
 case 'brains':
 this.props.route.character.brains += StatsIncrease.amount;
+statChangeText = <p>{"You gained " + StatsIncrease.amount + " Brains!"}</p>;
 break;
 case 'charm':
 this.props.character.charm += StatsIncrease.amount;
+statChangeText = <p>{"You gained " + StatsIncrease.amount + " Charm!"}</p>;
+break;
+case 'injuries':
+this.props.route.character.injuries += StatsIncrease.amount;
+statChangeText = <p>{"Your Injuries increased by " + StatsIncrease.amount + "! Don't let it get too high, or you'll die!"}</p>;
+break;
+case 'stress':
+this.props.route.character.stress += StatsIncrease.amount;
+statChangeText = <p>{"Your Stress increased by " + StatsIncrease.amount + "! You shouldn't let too much stress into your life. It can do funny things to your head."}</p>;
+break;
+case 'scandal':
+this.props.route.character.scandal += StatsIncrease.amount;
+statChangeText = <p>{"Your Scandal increased by " + StatsIncrease.amount + "! I daresay you're becoming downright indecent. If this rises too high, you'll draw the ire of the Blue Queen."}</p>;
 break;	
 }
 }
@@ -195,7 +296,13 @@ btn1Success = adventure.tests[i].onSuccess;
 btn1Fail = adventure.tests[i].onFail;
 
 console.log("The test is named " + btn1Name + ". It is a " + btn1Stat + " test.");
+if(btn1Stat === 'form'){
+checkForm = <Form tryHandler={this.formTest()}/>	
+	
+}
+else{
 buttons.push(<button onClick={() => this.performTest(btn1Name, btn1Thresh, btn1Stat, btn1Success, btn1Fail)}>{adventure.tests[i].name + ' (' + PercentChance + '% chance)'}</button>) 
+}
 break;
 
 case 1:
@@ -239,14 +346,20 @@ default:
 
 
 return(
-<div style={mainStyle}>
+<div>
 <StatsBar foo={this.props.route.character}/>
+<DamagesBar dmgs={this.props.route.character}/>
+<div style={mainStyle}>
+<h2>ParaQuest</h2>
 {line}
 {responses}
 {buttons}
 {successOrFail}
+{statChangeText}
+{checkForm}
 <NextAdventures nextOnes={next} adventure={adventure}/>
 <BackArea previous={adventure.previous} />
+</div>
 </div>
 );	
 }	

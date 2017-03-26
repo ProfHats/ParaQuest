@@ -66,9 +66,31 @@ id: "orangeRoom2",
 text: "As you cross the room, it becomes apparent that it is (or used to be) a temple of some sort. The walls are decorated with elaborate designs depicting serpents, clouds, and giants. It is not clear to you what any of this means, but eventually you come to the opposite end of the room.",	
 previous: "orangeRoom1",
 	statGain: [],
-next:[],
+next:[
+{
+id: 'puzzleRoom1',
+btnTxt: 'Go through the door to the next room'
+}
+],
 	tests: []
 },
+{
+id: "puzzleRoom1",
+text: "The door opens, and you are faced with another room. This one is very small, more like a closet than anything else. On the opposite wall lies a door, made of green stone. It is devoid of decoration excepting the carven symbol of a lion. Below the lion are written these words: 'THOU MUST REPEL ME IF TO PASS THOU WISHEST'. You've heard of these kind of locks before - they're opened by speaking a particular word close to them. What will you say?",	
+previous: 'orangeRoom2',
+statGain: [],
+next: [],
+tests: [
+{
+name: 'I will say...',
+answer: 'The Vine',
+statRequired: 'form',
+onSuccess: 'puzzleRoom1Success',
+onFail: 'puzzleRoom1Fail'	
+}
+]
+},
+
 {
 id: "earthRoomCopperPot",
 text: "The pot bears the mark of a tiger's head, and is bright and burnished, as if it had recently been cleaned. Either this strange place is inhabited, or these pots are of very recent make. Of course, it's also possible that you have gone mad. Never a possibility to be discounted lightly.",	
@@ -140,8 +162,11 @@ btnTxt: 'Proceed through the ruined doors'
 id: 'door1STRFail',
 text: 'You were a fool to think that raw muscle could move a door this heavy. You heave and ho for a good ten minutes, but earn only bruises for your efforts.',	
 previous: 'openDoorTestResult',
-statGain: [
-],
+statGain: [{
+type: 'injuries',
+amount: 1,
+limit: 3
+}],
 next:[
 ],
 		tests:[]
@@ -150,7 +175,13 @@ next:[
 id: 'door1BRNPass',
 text: 'You carefully study each of the animal symbols, trying to remember the classes you took years ago on Classical Symbology. At last you remember - yes, yes, the Swan and the Tiger. You recall an old rhyme that lists animals, and try pressing on the symbols in that order. Gears screech, and the doors open just a crack...',	
 previous: 'openDoorTestResult',
-	statGain: [],
+	statGain: [
+	{
+	type: 'brains',
+	amount: 1,
+	limit: 6
+	}
+	],
 next:[
 {
 id: 'ladyChamber1',
@@ -163,7 +194,13 @@ btnTxt: 'Proceed through the ruined doors'
 id: 'door1BRNFail',
 text: 'You look at each of the symbols in turn, then you turn them over in your head again and again. Suddenly, a revelation! The tiger is surely a symbol for imperialism, and the dove..! You touch the carvings in a particular order, but all you get for your trouble is wasted time. You should probably think this through again',	
 previous: 'openDoorTestResult',
-	statGain: [],
+	statGain: [
+	{
+	type: 'stress',
+	amount: 1,
+	limit: 2
+	}
+	],
 next:[
 ],
 		tests:[]
@@ -188,6 +225,76 @@ onSuccess: 'colCHRPass',
 onFail: 'colCHRFail'
 }
 ]
+},
+{
+id: 'prisonCell1',
+text: 'You are taken to a cold, damp, cell with iron bars. The only light comes in from a small grating in the ceiling. You are trapped here, until such a time as the creator writes more game for you to inhabit. Perhaps you can escape from your cell when that happens?',
+previous: '',
+ statGain: [],
+ next: [],
+ tests:[
+ {
+ name: 'Contemplate the meaning of Life',
+ threshold: 8,
+ statRequired: 'brains',
+ onSuccess: 'contemplatePass',
+ onFail: 'contemplateFail' 
+ }
+ ] 
+},
+{
+id: 'contemplatePass',
+text: 'You ponder for ages and ages. Nothing happens for a while, but then you begin to see. The ceiling seems to open up, and you become aware of something beyond...a Document, of sorts, or perhaps an Object? No, it feels more like a Model.',
+previous: 'prisonCell1',
+next:[],
+ statGain: [
+ {
+ type: 'brains',
+ amount: 1,
+ limit: 999 
+ }
+ ],
+tests:[] 
+},
+{
+id: 'contemplateFail',
+text: 'You think, and think, and think some more, until you feel like banging your head against the wall. Eventually, you do exactly that. Who said that thought broadens the mind? It has certainly broadened the hole in your head.',	
+previous: 'prisonCell1',
+next: [],
+ statGain: [
+ {
+ type: 'stress',
+ amount: 1,
+ limit: 999 
+ },
+ {
+ type: 'injury',
+ amount: 1,
+ limit: 999 
+ }
+ ],
+ tests:[]
+},
+{
+id: 'colCHRPass',
+text: 'Your Silver Tongue and quick wit do you well, as you explain to the Colonel that you are in fat his long lost nephew from over the seas, come back to the family after learning of your true ancestry. Surprisingly, the Colonel and the Lady both accept your bold lie, and you are accepted into the family. Your life is cushy. And that, I am afraid, is where this story must end for now. Perhaps the creator will find time to return in future, and there will be more to your life than cakes and horseback riding. I suppose you could have done worse, no?',
+previous: '',
+next: [],
+statGain: [],
+tests: []	
+},
+{
+id: 'colCHRFail',
+text: 'Your cock-and-bull story is not believed. The Colonel marches you off to the castle cells.',
+previous: '',
+next: [
+{
+id:'prisonCell1',
+btnTxt: 'Accept your fate'
+}
+],
+statGain: [],
+tests: []		
 }
 ];
 
@@ -216,7 +323,16 @@ onFail: 'colCHRFail'
 			else {
 				return false;
 			}
-		 }
+		 },
+		formTest : function(guess, answer) {
+		if(guess === answer){
+		return true;	
+		}
+		else {
+			return false;
+		}
+		} 
+		
 	 }
 	 
 export default Adventures;
