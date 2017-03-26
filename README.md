@@ -15,6 +15,12 @@ a second set of statistics, "Menaces", which track harm done to their character 
 as attempting a test and failing it) can increase Menaces. If a Menace exceeds a certain amount, a penalty will be applied to the player
 (such as dying and needing to restart the game).
 
+The Adventures are contained within the API. Adventures have an id, which is used to find them via routing, a text description, a 'previous'
+variable(which shows what the previous page was) and several arrays.
+These arrays include next(list of the other pages this page can link to), tests(a list of which tests, if any, exist in this page), and statsGain
+(describes whether or not the user should gain stats on this page - this is usually used for the pages immediately after successful
+Tests). Due to the application's design, each Adventure page must have each of these properties, even if they are not used in that Adventure page.
+
  The App features:
  
  + Dynamic Routing through parameterised URLs, which are tracked by way of a complex array of interconnected objects
