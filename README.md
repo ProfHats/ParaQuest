@@ -72,6 +72,6 @@ A system to persist changes to State, such as the addition/removal of Weapons an
 +The correct use of random() to generate pseudorandom numbers for use with the Tests
 +The use of callbacks to pass state between Parent components and Child components (not finished, but studied)
 
-[image1]: ./src/images/Data Model.jpg
-[image2]: ./src/images/Hierarchical Model.jpg
-[image3]: ./src/images/AdventurePic1.jpg
+[image1]: ./images/Data Model.jpg
+[image2]: ./images/Hierarchical Model.jpg
+[image3]: ./images/AdventurePic1.jpg
